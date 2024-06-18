@@ -1,0 +1,79 @@
+name: AutoBuild
+
+on:
+  push:
+    tags:
+      - "*"
+
+env:
+  DOTNET_SDK_VERSION: 6.0.x
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.2
+        with:
+          submodules: recursive
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2.1.0
+        with:
+          dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
+
+      - name: Verify .NET Core
+        run: dotnet --info
+
+      - name: Restore packages in preparation for ASFBroadcast publishing
+        run: dotnet restore ASFBroadcast -p:ContinuousIntegrationBuild=true --nologo
+
+      - name: Publish ASFBroadcast on Windows
+        shell: pwsh
+        run: |
+          $script = "./build.ps1";
+          Set-Location ${{ github.workspace }};
+          powershell $script;
+
+      - name: Upload ASFBroadcast
+        continue-on-error: true
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: ASFBroadcast
+          path: dist/ASFBroadcast.zip
+
+  release:
+    needs: publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.2
+
+      - name: Download ASFBroadcast artifact from windows-latest
+        uses: actions/download-artifact@v3.0.0
+        with:
+          name: ASFBroadcast
+          path: out
+
+      - name: Create ASFBroadcast GitHub release
+        id: github_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ASFBroadcast ${{ github.ref }}
+          body: release created bt github actions
+          prerelease: false
+
+      - name: Upload ASFBroadcast to GitHub release
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.github_release.outputs.upload_url }}
+          asset_path: out/ASFBroadcast.zip
+          asset_name: ASFBroadcast.zip
+          asset_content_type: application/zip

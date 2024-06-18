@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASFBroadcast", "ASFBroadcast\ASFBroadcast.csproj", "{32ECAB31-BC19-4030-93D0-77A2A8114694}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B084B4BE-3062-4C36-BF76-EDC3D6627C79}"
+	ProjectSection(SolutionItems) = preProject
+		build.ps1 = build.ps1
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		README.en.md = README.en.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiSteamFarm", "ArchiSteamFarm\ArchiSteamFarm\ArchiSteamFarm.csproj", "{3204D646-3154-44F2-9DD1-9344173288E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32ECAB31-BC19-4030-93D0-77A2A8114694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32ECAB31-BC19-4030-93D0-77A2A8114694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32ECAB31-BC19-4030-93D0-77A2A8114694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32ECAB31-BC19-4030-93D0-77A2A8114694}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3204D646-3154-44F2-9DD1-9344173288E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3204D646-3154-44F2-9DD1-9344173288E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3204D646-3154-44F2-9DD1-9344173288E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3204D646-3154-44F2-9DD1-9344173288E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_NeutralResourcesLanguage = en-US
+		BuildVersion_StartDate = 2000/1/1
+		SolutionGuid = {3032EA4B-1AE9-4B25-8719-790BF268412F}
+	EndGlobalSection
+EndGlobal

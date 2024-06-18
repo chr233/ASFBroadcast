@@ -1,0 +1,43 @@
+name: AutoBuild-Dev
+
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  DOTNET_SDK_VERSION: 6.0.x
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.0.2
+        with:
+          submodules: recursive
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2.1.0
+        with:
+          dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
+
+      - name: Verify .NET Core
+        run: dotnet --info
+
+      - name: Restore packages in preparation for ASFBroadcast publishing
+        run: dotnet restore ASFBroadcast -p:ContinuousIntegrationBuild=true --nologo
+
+      - name: Publish ASFBroadcast on Windows
+        shell: pwsh
+        run: |
+          $script = "./build.ps1";
+          Set-Location ${{ github.workspace }};
+          powershell $script;
+
+      - name: Upload ASFBroadcast
+        continue-on-error: true
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: ASFBroadcast
+          path: dist/ASFBroadcast.zip
