@@ -3,8 +3,8 @@ using ArchiSteamFarm.Core;
 using ArchiSteamFarm.NLog;
 using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Steam.Integration;
-using ArchiSteamFarm.Steam.Interaction;
 using ASFBroadcast.Data;
+using System.Reflection;
 using System.Text;
 
 namespace ASFBroadcast;
@@ -96,12 +96,22 @@ internal static class Utils
     /// <summary>
     /// 获取版本号
     /// </summary>
-    internal static Version MyVersion => typeof(ASFBroadcast).Assembly.GetName().Version;
+    internal static Version MyVersion => Assembly.GetExecutingAssembly().GetName().Version ?? new Version("0.0.0.0");
+
+    /// <summary>
+    /// 获取ASF版本
+    /// </summary>
+    internal static Version ASFVersion => typeof(ASF).Assembly.GetName().Version ?? new Version("0.0.0.0");
 
     /// <summary>
     /// 获取插件所在路径
     /// </summary>
-    internal static string MyLocation => typeof(ASFBroadcast).Assembly.Location;
+    internal static string MyLocation => Assembly.GetExecutingAssembly().Location;
+
+    /// <summary>
+    /// 获取插件所在文件夹路径
+    /// </summary>
+    internal static string MyDirectory => Path.GetDirectoryName(MyLocation) ?? ".";
 
     /// <summary>
     /// Steam商店链接
@@ -114,12 +124,34 @@ internal static class Utils
     internal static Uri SteamCommunityURL => ArchiWebHandler.SteamCommunityURL;
 
     /// <summary>
-    /// Steam客服链接
+    /// SteamAPI链接
     /// </summary>
-    internal static Uri SteamHelpURL => ArchiWebHandler.SteamHelpURL;
+    internal static Uri SteamApiURL => new("https://api.steampowered.com");
+
+    /// <summary>
+    /// Steam结算链接
+    /// </summary>
+    internal static Uri SteamCheckoutURL => ArchiWebHandler.SteamCheckoutURL;
 
     /// <summary>
     /// 日志
     /// </summary>
     internal static ArchiLogger ASFLogger => ASF.ArchiLogger;
+
+    /// <summary>
+    /// 跳过参数获取Bot名称
+    /// </summary>
+    /// <param name="args"></param>
+    /// <param name="skipStart"></param>
+    /// <param name="skipEnd"></param>
+    /// <returns></returns>
+    internal static string SkipBotNames(string[] args, int skipStart, int skipEnd)
+    {
+        return string.Join(',', args[skipStart..(args.Length - skipEnd)]);
+    }
+
+    /// <summary>
+    /// 逗号分隔符
+    /// </summary>
+    internal static readonly char[] SeparatorDot = [','];
 }

@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace ASFBroadcast.Data;
 
 /// <summary>
@@ -19,4 +17,13 @@ public sealed record PluginConfig
     /// 禁用挂卡
     /// </summary>
     public bool DisableFarming { get; set; }
+    /// <summary>
+    /// 心跳发送周期
+    /// </summary>
+    public int HeartbeatInterval { get; set; } = 30;
+
+    /// <summary>
+    /// 同步直播间信息周期
+    /// </summary>
+    public int SummaryInterval { get; set; } = 180;
 }

@@ -18,14 +18,14 @@ internal static class WebRequest
         return response?.Content;
     }
 
-    internal static async Task<GetBroadCastInfoResponse?> GetBroadCastInfo(Bot bot, ulong steamId, long broadcastId)
+    internal static async Task<GetBroadCastInfoResponse?> GetBroadCastInfo(Bot bot, ulong steamId, ulong broadcastId)
     {
         var request = new Uri(SteamCommunityURL, $"/broadcast/getbroadcastinfo/?steamid={steamId}&broadcastid={broadcastId}&location=5");
         var response = await bot.ArchiWebHandler.UrlGetToJsonObjectWithSession<GetBroadCastInfoResponse>(request, referer: SteamStoreURL).ConfigureAwait(false);
         return response?.Content;
     }
 
-    internal static async Task<BaseResultResponse?> SendHeartBeat(Bot bot, ulong steamId, long broadcastId, long viewerToken)
+    internal static async Task<BaseResultResponse?> SendHeartBeat(Bot bot, ulong steamId, ulong broadcastId, ulong viewerToken)
     {
         var request = new Uri(SteamCommunityURL, "/broadcast/heartbeat/");
 

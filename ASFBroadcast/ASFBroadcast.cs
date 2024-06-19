@@ -1,5 +1,3 @@
-#pragma warning disable CS8632 // 只能在 "#nullable" 注释上下文内的代码中使用可为 null 的引用类型的注释。
-
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Plugins.Interfaces;
 using ArchiSteamFarm.Steam;
@@ -10,11 +8,9 @@ using ASFBroadcast.Localization;
 
 using System.ComponentModel;
 using System.Composition;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using static ASFBroadcast.Utils;
 
 namespace ASFBroadcast;
 
@@ -139,7 +135,7 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
     /// <param name="args"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    private static Task<string?>? ResponseCommand(EAccess access, string cmd, string[] args)
+    private static Task<string?>? ResponseCommand(Bot bot, EAccess access, string cmd, string[] args)
     {
         int argLength = args.Length;
 
@@ -153,13 +149,35 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
                 "ABC" when access >= EAccess.FamilySharing =>
                     Task.FromResult(PluginInfo),
 
-                "TEST" when access >= EAccess.Master =>
-                    Command.ResponseTest(),
+                "STOPWATCH" or
+                "SWATCH" when access >= EAccess.Master =>
+                    Command.ResponseStopWatching(bot),
+
+                "WATCHSTATUS" or
+                "WS" when access >= EAccess.Master =>
+                    Command.ResponseGetWatchStatus(bot),
 
                 _ => null,
             },
             _ => cmd switch //带参数
             {
+                "BROADCASTINFO" or
+                "BINFO" when access >= EAccess.Master =>
+                    Command.ResponseGetBroadcastInfo(Utilities.GetArgsAsText(args, 1, ",")),
+
+                "WATCH" when argLength > 2 && access >= EAccess.Master =>
+                    Command.ResponseStartWatching(SkipBotNames(args, 0, 1), args.Last()),
+                "WATCH" when access >= EAccess.Master =>
+                    Command.ResponseStartWatching(bot, args[1]),
+
+                "STOPWATCH" or
+                "SWATCH" when access >= EAccess.Master =>
+                    Command.ResponseStopWatching(Utilities.GetArgsAsText(args, 1, ",")),
+
+                "WATCHSTATUS" or
+                "WS" when access >= EAccess.Master =>
+                    Command.ResponseGetWatchStatus(Utilities.GetArgsAsText(args, 1, ",")),
+
                 _ => null,
             }
         };
@@ -182,12 +200,12 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
         {
             var cmd = args[0].ToUpperInvariant();
 
-            if (cmd.StartsWith("AAT."))
+            if (cmd.StartsWith("ABC."))
             {
                 cmd = cmd[4..];
             }
 
-            var task = ResponseCommand(access, cmd, args);
+            var task = ResponseCommand(bot, access, cmd, args);
             if (task != null)
             {
                 return await task.ConfigureAwait(false);
