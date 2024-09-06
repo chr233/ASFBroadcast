@@ -5,38 +5,35 @@ namespace ASFBroadcast.Boardcast;
 
 internal static class WebRequest
 {
-    /// <summary>
-    /// 离开群组
-    /// </summary>
-    /// <param name="bot"></param>
-    /// <param name="GroupID"></param>
-    /// <returns></returns>
     internal static async Task<GetBroadCastMpdResponse?> GetBoardCastMpd(Bot bot, ulong steamId)
     {
-        var request = new Uri(SteamCommunityURL, $"/broadcast/getbroadcastmpd/?steamid={steamId}&broadcastid=0&watchlocation=5");
-        var response = await bot.ArchiWebHandler.UrlGetToJsonObjectWithSession<GetBroadCastMpdResponse>(request, referer: SteamStoreURL).ConfigureAwait(false);
+        var token = bot.AccessToken ?? throw new AccessTokenNullException();
+        var request = new Uri(SteamCommunityURL, $"/broadcast/getbroadcastmpd/?access_token={token}&steamid={steamId}&broadcastid=0&watchlocation=5");
+        var response = await bot.ArchiWebHandler.WebBrowser.UrlGetToJsonObject<GetBroadCastMpdResponse>(request, referer: SteamStoreURL).ConfigureAwait(false);
         return response?.Content;
     }
 
     internal static async Task<GetBroadCastInfoResponse?> GetBroadCastInfo(Bot bot, ulong steamId, ulong broadcastId)
     {
-        var request = new Uri(SteamCommunityURL, $"/broadcast/getbroadcastinfo/?steamid={steamId}&broadcastid={broadcastId}&location=5");
-        var response = await bot.ArchiWebHandler.UrlGetToJsonObjectWithSession<GetBroadCastInfoResponse>(request, referer: SteamStoreURL).ConfigureAwait(false);
+        var token = bot.AccessToken ?? throw new AccessTokenNullException();
+        var request = new Uri(SteamCommunityURL, $"/broadcast/getbroadcastinfo/?access_token={token}&steamid={steamId}&broadcastid={broadcastId}&location=5");
+        var response = await bot.ArchiWebHandler.WebBrowser.UrlGetToJsonObject<GetBroadCastInfoResponse>(request, referer: SteamStoreURL).ConfigureAwait(false);
         return response?.Content;
     }
 
     internal static async Task<BaseResultResponse?> SendHeartBeat(Bot bot, ulong steamId, ulong broadcastId, ulong viewerToken)
     {
         var request = new Uri(SteamCommunityURL, "/broadcast/heartbeat/");
-
+        var token = bot.AccessToken ?? throw new AccessTokenNullException();
         var data = new Dictionary<string, string>
         {
             { "steamid", steamId.ToString() },
             { "broadcastid", broadcastId.ToString() },
-            { "viewertoken", viewerToken.ToString() }
+            { "viewertoken", viewerToken.ToString() },
+            { "access_token", token },
         };
 
-        var response = await bot.ArchiWebHandler.UrlPostToJsonObjectWithSession<BaseResultResponse>(request, data: data, referer: SteamStoreURL).ConfigureAwait(false);
+        var response = await bot.ArchiWebHandler.WebBrowser.UrlPostToJsonObject<BaseResultResponse, Dictionary<string, string>>(request, referer: SteamStoreURL).ConfigureAwait(false);
         return response?.Content;
     }
 }
