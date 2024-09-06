@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace ASFEnhance;
+namespace ASFBroadcast;
 internal static partial class RegexUtils
 {
     [GeneratedRegex(@"(?:broadcast\/watch\/)?(\d+)")]

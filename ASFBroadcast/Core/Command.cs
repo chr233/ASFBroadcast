@@ -3,7 +3,6 @@ using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.Steam;
 using ASFBroadcast.Boardcast;
 using ASFBroadcast.Localization;
-using ASFEnhance;
 using System.Collections.Concurrent;
 using System.Text;
 
