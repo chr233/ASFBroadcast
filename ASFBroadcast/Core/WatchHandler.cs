@@ -30,7 +30,7 @@ internal sealed class WatchHandler(Bot bot)
 
             if (info != null)
             {
-                var title = string.IsNullOrEmpty(info.Title) ? info.Title : info.AppTitle;
+                var title = $"[{info.AppId}] {info.Title ?? info.AppTitle}";
                 BroadcastSummarry = string.Format("正在观看直播间: {0} 标题: {1} [{2}] 人数: {3}", WatchSteamId, title, info.AppId, info.ViewerCount);
             }
         }
@@ -46,7 +46,7 @@ internal sealed class WatchHandler(Bot bot)
         BroadcastId = broadcastId;
         ViewrToken = viewerToken;
 
-        var title = string.IsNullOrEmpty(info.Title) ? info.Title : info.AppTitle;
+        var title = $"[{info.AppId}] {info.Title ?? info.AppTitle}";
         BroadcastSummarry = string.Format("正在观看直播间: {0} 标题: {1} [{2}] 人数: {3}", watchSteamId, title, info.AppId, info.ViewerCount);
 
         HeartbeatTimer?.Dispose();

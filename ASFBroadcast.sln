@@ -7,7 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASFBroadcast", "ASFBroadcas
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B084B4BE-3062-4C36-BF76-EDC3D6627C79}"
 	ProjectSection(SolutionItems) = preProject
-		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		README.en.md = README.en.md
@@ -35,8 +34,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = en-US
-		BuildVersion_StartDate = 2000/1/1
 		SolutionGuid = {3032EA4B-1AE9-4B25-8719-790BF268412F}
+		BuildVersion_StartDate = 2000/1/1
+		RESX_NeutralResourcesLanguage = en-US
 	EndGlobalSection
 EndGlobal

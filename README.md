@@ -20,4 +20,4 @@
 | `STOPWATCH [Bots]`     | `SWATCH` | `Master`        | 停止机器人观看直播                          |
 | `WATCHSTATUS [Bots]`   | `WS`     | `Master`        | 获取机器人是否正在观看直播间                |
 | `BROADCASTINFO <Urls>` | `BINFO`  | `Master`        | 输入直播链接, 获取直播间名称/观看人数等信息 |
-| `WATCH [Bots] Url`     | `CK`     | `Master`        | 让机器人观看指定直播间                      |
+| `WATCH [Bots] Url`     |          | `Master`        | 让机器人观看指定直播间                      |

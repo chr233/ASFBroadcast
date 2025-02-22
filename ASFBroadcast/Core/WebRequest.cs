@@ -1,4 +1,5 @@
 using ArchiSteamFarm.Steam;
+using ArchiSteamFarm.Web.Responses;
 using ASFBroadcast.Data;
 
 namespace ASFBroadcast.Boardcast;
@@ -21,7 +22,7 @@ internal static class WebRequest
         return response?.Content;
     }
 
-    internal static async Task<BaseResultResponse?> SendHeartBeat(Bot bot, ulong steamId, ulong broadcastId, ulong viewerToken)
+    internal static async Task<BasicResponse?> SendHeartBeat(Bot bot, ulong steamId, ulong broadcastId, ulong viewerToken)
     {
         var request = new Uri(SteamCommunityURL, "/broadcast/heartbeat/");
         var token = bot.AccessToken ?? throw new AccessTokenNullException();
@@ -33,7 +34,7 @@ internal static class WebRequest
             { "access_token", token },
         };
 
-        var response = await bot.ArchiWebHandler.WebBrowser.UrlPostToJsonObject<BaseResultResponse, Dictionary<string, string>>(request, referer: SteamStoreURL).ConfigureAwait(false);
-        return response?.Content;
+        var response = await bot.ArchiWebHandler.WebBrowser.UrlPost(request, data: data, referer: SteamStoreURL).ConfigureAwait(false);
+        return response;
     }
 }
