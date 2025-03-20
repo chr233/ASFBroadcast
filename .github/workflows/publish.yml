@@ -9,7 +9,7 @@ env:
   PROJECT_NAME: "ASFBroadcast"
   REPO_NAME: "ASFBroadcast"
   PLUGIN_NAME : "ASFBroadcast.dll"
-  DOTNET_SDK_VERSION: 9.0.x
+  DOTNET_SDK_VERSION: 9.0
 
 jobs:
   build:
@@ -36,7 +36,7 @@ jobs:
         run: dotnet restore ${{ env.PROJECT_NAME }} -p:ContinuousIntegrationBuild=true --nologo
 
       - name: Publish ${{ env.PROJECT_NAME }}
-        run: dotnet publish ${{ env.PROJECT_NAME }} -o ./tmp/ -c Release
+        run: dotnet publish ${{ env.PROJECT_NAME }} -o ./publish/ -c Release
 
       - name: Collect files
         shell: pwsh
@@ -79,7 +79,6 @@ jobs:
           name: ${{ env.PROJECT_NAME }}.zip
           path: ./dist/${{ env.PROJECT_NAME }}.zip
 
-
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -104,8 +103,6 @@ jobs:
           name: ${{ env.PROJECT_NAME }} ${{ github.ref_name }}
           body: |
             ![Release](https://img.shields.io/badge/${{ env.REPO_NAME }}-${{ github.ref_name }}-brightgreen) ![Downloads](https://img.shields.io/github/downloads/chr233/${{ env.REPO_NAME }}/${{ github.ref_name }}/total?label=Downloads)
-
-            Help improve translation: [![Crowdin](https://badges.crowdin.net/ASFBroadcast/localized.svg)](https://crowdin.com/project/ASFBroadcast)
 
             ---
 
