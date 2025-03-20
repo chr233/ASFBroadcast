@@ -11,7 +11,6 @@
 		<PackageReference Include="AngleSharp.XPath" />
 		<PackageReference Include="ConfigureAwaitChecker.Analyzer" PrivateAssets="all" />
 		<PackageReference Include="SteamKit2" IncludeAssets="compile" />
-		<PackageReference Include="Swashbuckle.AspNetCore.Annotations" />
 		<PackageReference Include="System.Composition.AttributedModel" />
 		<PackageReference Include="Microsoft.CodeAnalysis.ResxSourceGenerator" PrivateAssets="all" />
 	</ItemGroup>
