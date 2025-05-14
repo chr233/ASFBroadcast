@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 
 namespace ASFBroadcast.Data;
-public sealed record GetBroadCastMpdResponse
+internal sealed record GetBroadCastMpdResponse
 {
     [JsonPropertyName("success")]
     public string? Success { get; set; }

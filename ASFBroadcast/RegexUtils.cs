@@ -4,5 +4,5 @@ namespace ASFBroadcast;
 internal static partial class RegexUtils
 {
     [GeneratedRegex(@"(?:broadcast\/watch\/)?(\d+)")]
-    public static partial Regex MatchBraodcastSteamId();
+    public static partial Regex MatchBroadcastSteamId();
 }

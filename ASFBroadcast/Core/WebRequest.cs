@@ -2,7 +2,7 @@ using ArchiSteamFarm.Steam;
 using ArchiSteamFarm.Web.Responses;
 using ASFBroadcast.Data;
 
-namespace ASFBroadcast.Boardcast;
+namespace ASFBroadcast.Broadcast;
 
 internal static class WebRequest
 {

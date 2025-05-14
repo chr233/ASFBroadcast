@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<Version>1.0.4.0</Version>
+		<Version>1.0.4.1</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -32,7 +32,6 @@
 
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
 		<DebugType>portable</DebugType>
-
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">

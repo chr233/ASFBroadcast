@@ -5,7 +5,7 @@ namespace ASFBroadcast.Data;
 /// <summary>
 /// 结果响应
 /// </summary>
-public record BaseResultResponse
+public sealed record BaseResultResponse
 {
     /// <summary>
     /// 结果

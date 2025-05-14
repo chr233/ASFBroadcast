@@ -19,11 +19,11 @@ internal static class AdapterBridge
         {
             var adapterEndpoint = Assembly.Load("ASFEnhance").GetType("ASFEnhance._Adapter_.Endpoint");
             var registerModule = adapterEndpoint?.GetMethod("RegisterModule", BindingFlags.Static | BindingFlags.Public);
-            var pluinVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            var pluginVersion = Assembly.GetExecutingAssembly().GetName().Version;
 
             if (registerModule != null && adapterEndpoint != null)
             {
-                var result = registerModule?.Invoke(null, [pluginName, pluginId, cmdPrefix, repoName, pluinVersion, cmdHandler]);
+                var result = registerModule?.Invoke(null, [pluginName, pluginId, cmdPrefix, repoName, pluginVersion, cmdHandler]);
 
                 if (result is string str)
                     if (str == pluginName)

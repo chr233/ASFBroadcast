@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace ASFBroadcast.Data;
 
-public sealed record GetBroadCastInfoResponse
+internal sealed record GetBroadCastInfoResponse
 {
     [JsonPropertyName("success")]
     public int Success { get; set; }

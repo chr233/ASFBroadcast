@@ -1,7 +1,7 @@
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.Steam;
-using ASFBroadcast.Boardcast;
+using ASFBroadcast.Broadcast;
 using ASFBroadcast.Localization;
 using System.Collections.Concurrent;
 using System.Text;
@@ -48,7 +48,7 @@ internal static class Command
 
         foreach (var url in urls)
         {
-            var match = RegexUtils.MatchBraodcastSteamId().Match(url);
+            var match = RegexUtils.MatchBroadcastSteamId().Match(url);
 
             if (!match.Success || !ulong.TryParse(match.Groups[1].Value, out var targetSteamId))
             {
@@ -102,7 +102,7 @@ internal static class Command
             return bot.FormatBotResponse("内部错误");
         }
 
-        var match = RegexUtils.MatchBraodcastSteamId().Match(broadcastUrl);
+        var match = RegexUtils.MatchBroadcastSteamId().Match(broadcastUrl);
         if (!match.Success || !ulong.TryParse(match.Groups[1].Value, out var watchSteamId))
         {
             return bot.FormatBotResponse(Langs.TwoItem, broadcastUrl, "参数错误, 支持直播链接或者SteamID");
@@ -228,7 +228,7 @@ internal static class Command
 
         if (handler.IsWatching)
         {
-            return bot.FormatBotResponse(handler.BroadcastSummarry ?? "未知状态");
+            return bot.FormatBotResponse(handler.BroadcastSummary ?? "未知状态");
         }
         else
         {

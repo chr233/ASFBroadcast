@@ -1,13 +1,13 @@
 using ArchiSteamFarm.Steam;
 using ASFBroadcast.Data;
 
-namespace ASFBroadcast.Boardcast;
+namespace ASFBroadcast.Broadcast;
 internal sealed class WatchHandler(Bot bot)
 {
     public ulong WatchSteamId { get; set; }
     public ulong BroadcastId { get; private set; }
-    public ulong ViewrToken { get; private set; }
-    public string? BroadcastSummarry { get; private set; }
+    public ulong ViewerToken { get; private set; }
+    public string? BroadcastSummary { get; private set; }
 
     public Timer? HeartbeatTimer { get; set; }
     public Timer? SummaryTimer { get; set; }
@@ -18,7 +18,7 @@ internal sealed class WatchHandler(Bot bot)
     {
         if (bot.IsConnectedAndLoggedOn)
         {
-            await WebRequest.SendHeartBeat(bot, WatchSteamId, BroadcastId, ViewrToken).ConfigureAwait(false);
+            await WebRequest.SendHeartBeat(bot, WatchSteamId, BroadcastId, ViewerToken).ConfigureAwait(false);
         }
     }
 
@@ -31,7 +31,7 @@ internal sealed class WatchHandler(Bot bot)
             if (info != null)
             {
                 var title = $"[{info.AppId}] {info.Title ?? info.AppTitle}";
-                BroadcastSummarry = string.Format("正在观看直播间: {0} 标题: {1} [{2}] 人数: {3}", WatchSteamId, title, info.AppId, info.ViewerCount);
+                BroadcastSummary = string.Format("正在观看直播间: {0} 标题: {1} [{2}] 人数: {3}", WatchSteamId, title, info.AppId, info.ViewerCount);
             }
         }
     }
@@ -44,10 +44,10 @@ internal sealed class WatchHandler(Bot bot)
         }
         WatchSteamId = watchSteamId;
         BroadcastId = broadcastId;
-        ViewrToken = viewerToken;
+        ViewerToken = viewerToken;
 
         var title = $"[{info.AppId}] {info.Title ?? info.AppTitle}";
-        BroadcastSummarry = string.Format("正在观看直播间: {0} 标题: {1} [{2}] 人数: {3}", watchSteamId, title, info.AppId, info.ViewerCount);
+        BroadcastSummary = string.Format("正在观看直播间: {0} 标题: {1} [{2}] 人数: {3}", watchSteamId, title, info.AppId, info.ViewerCount);
 
         HeartbeatTimer?.Dispose();
         HeartbeatTimer = new Timer(SendHeartbeatCallback, null, TimeSpan.FromSeconds(Config.HeartbeatInterval), TimeSpan.FromSeconds(10));
@@ -58,7 +58,7 @@ internal sealed class WatchHandler(Bot bot)
             SummaryTimer = new Timer(UpdateSummaryCallback, null, TimeSpan.FromSeconds(Config.SummaryInterval), TimeSpan.FromSeconds(180));
         }
 
-        return BroadcastSummarry;
+        return BroadcastSummary;
     }
 
     public string StopWatchBroadcast()
@@ -73,8 +73,8 @@ internal sealed class WatchHandler(Bot bot)
 
         WatchSteamId = 0;
         BroadcastId = 0;
-        ViewrToken = 0;
-        BroadcastSummarry = null;
+        ViewerToken = 0;
+        BroadcastSummary = null;
         return "已停止观看直播";
     }
 }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -144,9 +144,6 @@
   <data name="MultipleLineResult" xml:space="preserve">
     <value>多行结果:</value>
   </data>
-  <data name="ParseHtmlFailed" xml:space="preserve">
-    <value>HTML解析失败!</value>
-  </data>
   <data name="PluginInfo" xml:space="preserve">
     <value>爱发电: https://afdian.net/@chr233</value>
   </data>
@@ -194,11 +191,5 @@
   </data>
   <data name="NoInformation" xml:space="preserve">
     <value>无信息</value>
-  </data>
-  <data name="LoadInventoryFailedNetworkError" xml:space="preserve">
-    <value>网络异常, 读取库存信息失败</value>
-  </data>
-  <data name="History" xml:space="preserve">
-    <value>历史任务  (点数为接收点数):</value>
   </data>
 </root>

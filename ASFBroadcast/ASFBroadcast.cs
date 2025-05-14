@@ -1,7 +1,7 @@
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Plugins.Interfaces;
 using ArchiSteamFarm.Steam;
-using ASFBroadcast.Boardcast;
+using ASFBroadcast.Broadcast;
 using ASFBroadcast.Core;
 using ASFBroadcast.Data;
 using ASFBroadcast.Localization;
@@ -24,7 +24,7 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
 
     public static PluginConfig Config => Utils.Config;
 
-    private Timer? StatisticTimer { get; set; }
+    private Timer? StatisticTimer;
 
     /// <inheritdoc/>
     public Task OnASFInit(IReadOnlyDictionary<string, JsonElement>? additionalConfigProperties = null)
@@ -79,7 +79,7 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
         //统计
         if (Config.Statistic && !ASFEBridge)
         {
-            var request = new Uri("https://asfe.chrxw.com/ASFBroadcast");
+            var request = new Uri("https://asfe.chrxw.com/asfbroadcast");
             StatisticTimer = new Timer(
                 async (_) =>
                 {
@@ -104,7 +104,7 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
         var handler = typeof(ASFBroadcast).GetMethod(nameof(ResponseCommand), flag);
 
         const string pluginId = nameof(ASFBroadcast);
-        const string cmdPrefix = "AAT";
+        const string cmdPrefix = "ABC";
         const string? repoName = null;
 
         ASFEBridge = AdapterBridge.InitAdapter(Name, pluginId, cmdPrefix, repoName, handler);
@@ -130,6 +130,7 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
     /// <summary>
     /// 处理命令
     /// </summary>
+    /// <param name="bot"></param>
     /// <param name="access"></param>
     /// <param name="cmd"></param>
     /// <param name="args"></param>
