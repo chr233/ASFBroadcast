@@ -1,7 +1,6 @@
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Plugins.Interfaces;
 using ArchiSteamFarm.Steam;
-using ASFBroadcast.Broadcast;
 using ASFBroadcast.Core;
 using ASFBroadcast.Data;
 using ASFBroadcast.Localization;

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 	</PropertyGroup>
@@ -16,8 +16,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Localization\Langs.resx" EmitFormatMethods="true" Public="false"/>
-		<EmbeddedResource Update="Localization\Static.resx" EmitFormatMethods="false" Public="false"/>
+		<EmbeddedResource Update="Localization\Langs.resx" EmitFormatMethods="true" Public="false" />
+		<EmbeddedResource Update="Localization\Static.resx" EmitFormatMethods="false" Public="false" />
 	</ItemGroup>
 
 	<ItemGroup>

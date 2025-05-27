@@ -1,7 +1,7 @@
 using ArchiSteamFarm.Steam;
 using ASFBroadcast.Data;
 
-namespace ASFBroadcast.Broadcast;
+namespace ASFBroadcast.Core;
 internal sealed class WatchHandler(Bot bot)
 {
     public ulong WatchSteamId { get; set; }
@@ -17,9 +17,7 @@ internal sealed class WatchHandler(Bot bot)
     public async void SendHeartbeatCallback(object? _)
     {
         if (bot.IsConnectedAndLoggedOn)
-        {
             await WebRequest.SendHeartBeat(bot, WatchSteamId, BroadcastId, ViewerToken).ConfigureAwait(false);
-        }
     }
 
     public async void UpdateSummaryCallback(object? _)
@@ -39,9 +37,7 @@ internal sealed class WatchHandler(Bot bot)
     public string StartWatchBroadcast(ulong watchSteamId, GetBroadCastMpdResponse mpd, GetBroadCastInfoResponse info)
     {
         if (!ulong.TryParse(mpd.BroadcastId, out var broadcastId) || !ulong.TryParse(mpd.ViewerToken, out var viewerToken))
-        {
             return "观看直播失败, 参数错误";
-        }
         WatchSteamId = watchSteamId;
         BroadcastId = broadcastId;
         ViewerToken = viewerToken;
@@ -54,9 +50,7 @@ internal sealed class WatchHandler(Bot bot)
 
         SummaryTimer?.Dispose();
         if (Config.SummaryInterval > 0)
-        {
             SummaryTimer = new Timer(UpdateSummaryCallback, null, TimeSpan.FromSeconds(Config.SummaryInterval), TimeSpan.FromSeconds(180));
-        }
 
         return BroadcastSummary;
     }
@@ -67,9 +61,7 @@ internal sealed class WatchHandler(Bot bot)
         SummaryTimer?.Dispose();
 
         if (!IsWatching)
-        {
             return "未在观看直播";
-        }
 
         WatchSteamId = 0;
         BroadcastId = 0;

@@ -1,7 +1,6 @@
 using ArchiSteamFarm.Core;
 using ArchiSteamFarm.Localization;
 using ArchiSteamFarm.Steam;
-using ASFBroadcast.Broadcast;
 using ASFBroadcast.Localization;
 using System.Collections.Concurrent;
 using System.Text;
