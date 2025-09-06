@@ -25,6 +25,8 @@ internal static class WebRequest
         var request = new Uri(SteamCommunityURL, $"/broadcast/getbroadcastinfo/?access_token={token}&steamid={steamId}&broadcastid={broadcastId}&location=5");
         var response = await bot.ArchiWebHandler.WebBrowser.UrlGetToJsonObject<GetBroadCastInfoResponse>(request, referer: SteamStoreURL).ConfigureAwait(false);
         return response?.Content;
+
+
     }
 
     internal static async Task<BasicResponse?> SendHeartBeat(Bot bot, ulong steamId, ulong broadcastId, ulong viewerToken)
