@@ -12,6 +12,7 @@
 		<PackageReference Include="ConfigureAwaitChecker.Analyzer" PrivateAssets="all" />
 		<PackageReference Include="System.Composition.AttributedModel" />
 		<PackageReference Include="Microsoft.CodeAnalysis.ResxSourceGenerator" PrivateAssets="all" />
+		<PackageReference Include="SteamKit2" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 	</ItemGroup>
 
