@@ -1,4 +1,5 @@
 using ArchiSteamFarm.Core;
+using ArchiSteamFarm.Helpers.Json;
 using ArchiSteamFarm.Plugins.Interfaces;
 using ArchiSteamFarm.Steam;
 using ASFBroadcast.Core;
@@ -38,7 +39,7 @@ internal sealed class ASFBroadcast : IASF, IBot, IBotConnection, IBotCommand2
                 {
                     try
                     {
-                        config = configValue.Deserialize<PluginConfig>();
+                        config = configValue.ToJsonObject<PluginConfig>();
                         if (config != null)
                         {
                             break;
